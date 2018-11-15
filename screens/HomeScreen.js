@@ -37,6 +37,7 @@ export default class HomeScreen extends React.Component {
   }
 
   starEmail = () => {
+	const { emailIndex } = this.state;
     emails[emailIndex].starred = true;
     this.moveToNextEmail();
   }
