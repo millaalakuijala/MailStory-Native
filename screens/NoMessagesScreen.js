@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#242424',
     padding: 35,
-    paddingTop: 250,
+    paddingTop: '30%',
     textAlign: 'center',
   },
   button: {
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 24,
     fontWeight: 'bold'
+  },
+  deleteAnnouncement: {
+      padding: 10
   }
 
 });
