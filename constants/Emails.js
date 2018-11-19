@@ -14,7 +14,7 @@ const emails = [{
   senderShort: 'O',
   title: 'Onnittelut opiasta',
   content: 'Osaanut opiskelupaikan Vantaan teknillisestä koulutusohjelmasta.\n\n',
-  starred: true,
+  starred: false,
   deleted: false,
 },
 {

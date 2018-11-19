@@ -3,8 +3,10 @@ import {
   StyleSheet,
   Text,
   View,
+  Animated,
 } from 'react-native';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import * as Animatable from 'react-native-animatable';
  
 class Email extends Component {
  
@@ -14,13 +16,14 @@ class Email extends Component {
       gestureName: 'none',
     };
   }
- 
+
   onSwipeLeft(gestureState) {
     this.props.deleteEmail();
   }
  
   onSwipeRight(gestureState) {
     this.props.moveToNextEmail();
+
   }
  
   onSwipe(gestureName, gestureState) {
@@ -35,13 +38,13 @@ class Email extends Component {
   }
  
   render() {
-    
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
     };
     const { title, sender, senderShort, content, deleted } = this.props.email;
     const { index } = this.props;
+    const { gestureName } = this.state;
  
     return (
       <View style={styles.container}>
@@ -55,17 +58,27 @@ class Email extends Component {
             backgroundColor: '#fff'
           }}
         >
-        <View style={styles.header}>
-          <Text style={styles.title}>{title}</Text>
-          <View style={styles.sender}>
-            <View style={{
-              ...styles.circle, backgroundColor: colors[index]}}>
-              <Text style={styles.senderShort}>{senderShort}</Text>
+          <Animated.View
+            style={[{
+              transform: [
+                {
+                  translateX: this.state.x
+                }
+              ]
+            }]}
+          >
+          <View style={styles.header}>
+            <Text style={styles.title}>{title}</Text>
+            <View style={styles.sender}>
+              <View style={{
+                ...styles.circle, backgroundColor: colors[index]}}>
+                <Text style={styles.senderShort}>{senderShort}</Text>
+              </View>
+              <Text>{sender}</Text>
             </View>
-            <Text>{sender}</Text>
           </View>
-        </View>
-          <Text style={styles.content}>{content}</Text>
+            <Text style={styles.content}>{content}</Text>
+          </Animated.View>
         </GestureRecognizer>
       </View>
     );

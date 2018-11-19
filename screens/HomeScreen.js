@@ -7,39 +7,48 @@ import {
   Text,
   TouchableOpacity,
   View,
+  LayoutAnimation,
+  UIManager,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import Email from './Email';
 import NoMessagesScreen from './NoMessagesScreen';
+import SwipeableEmail from './SwipeableEmail';
 import emails from '../constants/Emails';
+import EmptyStar from '../assets/images/EmptyStar.jpeg';
+import FullStar from '../assets/images/FullStar.png';
 
 export default class HomeScreen extends React.Component {
   state = {
     emailIndex: 0,
     deleted: 0,
     starred: 0,
+  };
+
+  constructor(props) {
+    super(props);
+    UIManager.setLayoutAnimationEnabledExperimental
+    && UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  shouldRender = index => {
+    return index >= this.state.emailIndex;
   }
 
   static navigationOptions = {
     header: null,
   };
 
-  moveToNextEmail = () => {
-    this.setState({ emailIndex: this.state.emailIndex + 1 });
-  }
-
   deleteEmail = () => {
     const { emailIndex } = this.state;
     emails[emailIndex].deleted = true;
-    this.moveToNextEmail();
   }
 
-  starEmail = () => {
-	const { emailIndex } = this.state;
-    emails[emailIndex].starred = true;
-    this.moveToNextEmail();
+  starEmail = amount => {
+	  const { emailIndex, starred } = this.state;
+    emails[emailIndex].starred = !emails[emailIndex].starred;
+    this.setState({ starred: starred + amount })
   }
 
   render() {
@@ -48,78 +57,31 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           {i < emails.length
-            ? <Email
-              index={i}
-              email={emails[i]}
-              moveToNextEmail={this.moveToNextEmail}
-              deleteEmail={this.deleteEmail}
-            />
+            ? (<View>
+                {emails.map((email, j) => this.shouldRender(j) &&
+                  <View key={j}>
+                    <SwipeableEmail
+                      email={email}
+                      index={j}
+                      deleteEmail={this.deleteEmail}
+                      starEmail={this.starEmail}
+                      onDismiss={() => {
+                    if ([...new Array(emails.length)].slice(j + 1, emails.length).some(this.shouldRender)) {
+                      LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.easeOut, duration: 10000 });
+                    }
+                    this.setState({ emailIndex: this.state.emailIndex + 1 })
+                  }}/></View>)}
+              </View>)
             : <NoMessagesScreen />}
-
-          {/* <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View> */}
         </ScrollView>
-
-        {/* <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View> */}
+        {i < emails.length && (<View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => emails[i].starred ? this.starEmail(-1) : this.starEmail(1)}>
+            <Image source={emails[i].starred ? FullStar : EmptyStar} style={styles.image} />
+          </TouchableOpacity>
+        </View>)}
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
@@ -132,60 +94,13 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     height: '100%'
   },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
+  buttonContainer: {
     alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    justifyContent: 'center',
+    height: '15%',
   },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+  image: {
+    height: 70,
+    width: 70,
+  }
 });
