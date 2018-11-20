@@ -13,7 +13,10 @@ const emails = [{
   sender: 'opiskel',
   senderShort: 'O',
   title: 'Onnittelut opiasta',
-  content: 'Osaanut opiskelupaikan Vantaan teknillisestä koulutusohjelmasta.\n\n',
+  content: 'Mahdollisimman pitkä testi sähköposti: \n\nVaikuttaisi vakavasti siltä, ettei ohjelmamma Scrollaus-ominaisuus toimi aivan oikein iPhone-laitteilla, '
+   + ' vaan sen sijaan, että teksti scrollauksen jälkeen jäisi siihen kohtaan, mihin se jätettiinkään, se itsestään palaa takaisin alkuasemaansa. '
+   + '\n\nTämän hypoteesin tarkistamista varten tässä on niin pitkä viesti, ettei se ainakaan kerralla koko ruudulle, ja scrollaamisen bugisuuttaa pystyy selkeästi testaamaan.\n\n '
+   + ' PS. Ihan sama, mitä tähän kirjoittaa, ei se näy kuitenkaan - ainakaan kokonaan.',
   starred: false,
   deleted: false,
 },

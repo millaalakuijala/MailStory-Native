@@ -49,14 +49,6 @@ export default class Inbox extends React.Component {
         {noNormalMailsText}
 
       </View>
-      /*<View>
-        <View>{emails.filter(email => email.starred).map(email =>
-          <Text key={email.id}>{email.content}</Text>)}
-        </View>
-        <View>{emails.filter(email => !email.deleted && !email.starred).map(email =>
-          <Text key={email.id}>{email.content}</Text>)}
-        </View>
-      </View>*/
     );
   }
 }
@@ -64,7 +56,6 @@ export default class Inbox extends React.Component {
 const colors = ['rgba(112, 91, 196, 0.5)','rgba(85, 127, 190, 0.5)',
 'rgba(132, 46, 176, 0.5)', 'rgba(7, 45, 102, 0.5)'];
 
-//header, title & sender just copy-pasted from Email.js. Better way to do this?
 const styles = StyleSheet.create({
   inboxTitle: {
     fontSize: 40,

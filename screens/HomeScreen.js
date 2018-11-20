@@ -97,6 +97,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(154, 154, 154, 1.0)',
     height: '15%',
   },
   image: {
