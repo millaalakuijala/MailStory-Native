@@ -68,7 +68,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.state.tutorial && <Info close={this.endTutorial} />}
         {!this.state.tutorial &&
-          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <View style={styles.container} contentContainerStyle={styles.contentContainer}>
             {i < emails.length
               ? (<View>
                   {emails.map((email, j) => this.shouldRender(j) &&
@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
                 </View>)
               : <NoMessagesScreen />
             }
-          </ScrollView>
+          </View>
         }
         {!this.state.tutorial && i < emails.length && (<View style={styles.buttonContainer}>
           <Text style={styles.image}> SPAM BUTTON PLACEHOLDER</Text>
