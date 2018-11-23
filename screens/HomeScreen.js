@@ -11,6 +11,7 @@ import {
   UIManager,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import * as Progress from '../node_modules/react-native-progress';
 
 import { MonoText } from '../components/StyledText';
 import NoMessagesScreen from './NoMessagesScreen';
@@ -75,6 +76,10 @@ export default class HomeScreen extends React.Component {
             : <NoMessagesScreen />}
         </ScrollView>
         {i < emails.length && (<View style={styles.buttonContainer}>
+          <Text style={styles.image}> SPAM BUTTON PLACEHOLDER</Text>
+          <Progress.Circle
+            progress= {this.state.emailIndex * 1.0 / emails.length} color='rgba(50, 167, 104, 1)' size={70} showsText={true}
+            formatText={(progress) => Math.round(progress*emails.length) + "/" + emails.length} textStyle={{fontSize: 25}}/>
           <TouchableOpacity onPress={() => emails[i].starred ? this.starEmail(-1) : this.starEmail(1)}>
             <Image source={emails[i].starred ? FullStar : EmptyStar} style={styles.image} />
           </TouchableOpacity>
@@ -83,6 +88,8 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+// Other Possible progress indicator: <Progress.Bar progress={this.state.emailIndex * 1.0 / emails.length} width={300} height={10}/>
 
 const styles = StyleSheet.create({
   container: {
@@ -97,10 +104,14 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(154, 154, 154, 1.0)',
+    flexDirection: 'row',
     height: '15%',
   },
   image: {
     height: 70,
     width: 70,
+    marginHorizontal: 40
   }
 });
