@@ -16,7 +16,7 @@ export default class Info extends React.Component {
       this.setState({
         page: oldPage + 1
       })
-      if (oldPage == 1) this.closeInfo();
+      if (oldPage == 3) this.closeInfo();
     }
 
     closeInfo = () => {
@@ -26,20 +26,61 @@ export default class Info extends React.Component {
     render() {
       return (
         <View style={{flex: 1, flexDirection: 'column', padding: 20}}>
-          {this.state.page == 0 && <Text style={styles.text}>{"Welcome to MailStory!\n\nHere is a quick tutorial of how to use this product."} </Text>}
-          {this.state.page == 1 && <Text style={styles.text}> Insert picture of UI in this page </Text>}
-          <TouchableOpacity style={styles.button} onPress={this.nextPage}>
-            <Text style={styles.buttonText}>Next page</Text>
-          </TouchableOpacity>
+          {this.state.page == 0 && (
+            <View>
+              <View style={{fontSize: 40, paddingVertical: 50, alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={styles.text}>Welcome to</Text>
+                <Text style={styles.text}>MailStory!</Text>
+              </View>
+              <Text style={{fontSize: 20}}>Here is a quick tutorial to show you how to use this product.</Text>
+              <TouchableOpacity style={styles.button} onPress={this.nextPage}>
+                <Text style={styles.buttonText}>Show tutorial</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {this.state.page == 1 && (
+            <View>
+              <Text style={{fontSize: 20, paddingVertical: 10}}>MailStory is an app which helps you to handle your incoming mails fast and easily.</Text>
+              <Text style={{fontSize: 20, paddingVertical: 10}}>When starting the app, you are shown your new emails, one mail at a time and you can react to them appropiately,
+                                                                for example by deleting or starring them. This way your inbox will always stay clean and organized.</Text>
+              <Text style={{fontSize: 20, paddingVertical: 10}}>Possible actions are illustrated on the next page.</Text>
+              <TouchableOpacity style={styles.button} onPress={this.nextPage}>
+                <Text style={styles.buttonText}>Next page</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {this.state.page == 2 && (
+            <View>
+              <Text style={styles.text}>[Insert picture of UI with text descriptions for each symbol & swipes]</Text>
+              <TouchableOpacity style={styles.button} onPress={this.nextPage}>
+                <Text style={styles.buttonText}>Next page</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {this.state.page == 3 && (
+            <View>
+              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{fontSize: 20, paddingVertical: 10}}>You are now ready to use MailStory. Select Start to open your mails and...</Text>
+                <Text style={{fontSize: 30}}>Swipe your inbox</Text>
+                <Text style={{fontSize: 30}}>clean!</Text>
+              </View>
+              <TouchableOpacity style={styles.button} onPress={this.nextPage}>
+                  <Text style={styles.buttonText}>Start</Text>
+                </TouchableOpacity>
+            </View>
+          )}
         </View>
-    )
+      );
     }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   text: {
-      fontSize: 40,
-      alignItems: 'center'
+      fontSize: 40  
   },
   button: {
     backgroundColor: 'rgba(50, 167, 104, 0.75)',
