@@ -1,8 +1,11 @@
 import React from 'react';
-import { Dimensions, PanResponder, StyleSheet, View, Text, Animated, TouchableOpacity } from 'react-native';
+import {
+  Animated, Dimensions, Image, PanResponder, StyleSheet, Text, TouchableOpacity, View
+} from 'react-native';
 
 import type {PanResponderInstance, GestureState} from 'PanResponder';
-import type {PressEvent} from 'CoreEventTypes';
+import EmptyStar from '../assets/images/EmptyStar.jpeg';
+import FullStar from '../assets/images/FullStar.png';
 
 export default class SwipeableEmail extends React.Component {
   translateX = new Animated.Value(0);
@@ -32,18 +35,18 @@ export default class SwipeableEmail extends React.Component {
   }
 
   render() {
-    const { title, sender, senderShort, content, deleted } = this.props.email;
+    const { title, sender, senderShort, content, deleted, starred } = this.props.email;
     const { index } = this.props;
 
     return (
-      <View>
+      <View style={styles.container}>
         <Animated.View
           style={{transform: [{translateX: this.translateX}], height: '100%'}} {...this._panResponder.panHandlers}>
           <View style={styles.header}>
             <Text style={styles.title}>{title}</Text>
             <View style={styles.sender}>
               <View style={{
-                ...styles.circle, backgroundColor: colors[index]}}>
+                ...styles.circle, backgroundColor: colors[index % colors.length]}}>
                 <Text style={styles.senderShort}>{senderShort}</Text>
               </View>
               <Text>{sender}</Text>
@@ -96,6 +99,15 @@ const styles = StyleSheet.create({
   content: {
     fontSize: 20,
     padding: 15,
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '15%',
+  },
+  image: {
+    height: 70,
+    width: 70,
   }
 });
 
