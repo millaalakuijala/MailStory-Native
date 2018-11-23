@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -21,8 +22,11 @@ export default class Inbox extends React.Component {
     return (
       <View>
         <Text style={styles.inboxTitle}>Inbox</Text>
-        <View>{starred.map((email, i) => (
-          <View key={email.id} style={styles.header}>
+        <ScrollView>{starred.map((email, i) => (
+          <View key={email.id} style={{
+            ...styles.header,
+            backgroundColor: i % 2 === 0 && 'rgba(154, 154, 154, 0.15)'
+          }}>
             <Text style={styles.title}>{email.title}</Text>
             <View style={styles.sender}>
               <ImageBackground source={FullStar} style={styles.image}>
@@ -33,30 +37,25 @@ export default class Inbox extends React.Component {
               <Text>{email.sender}</Text>
             </View>
           </View> ))}
-        </View>
-        <View>{notDeleted.map((email, i) => (
-          <View key={email.id} style={styles.header}>
-            <Text style={styles.title}>{email.title}</Text>
-            <View style={styles.sender}>
-              <View style={{
-                ...styles.circle, backgroundColor: colors[i + starred.length]}}>
-                <Text style={styles.senderShort}>{email.senderShort}</Text>
+          <View>{notDeleted.map((email, i) => (
+            <View key={email.id} style={{
+              ...styles.header,
+              backgroundColor: (i + starred.length) % 2 === 0 && 'rgba(154, 154, 154, 0.15)'
+            }}>
+              <Text style={styles.title}>{email.title}</Text>
+              <View style={styles.sender}>
+                <View style={{
+                  ...styles.circle,
+                  backgroundColor: colors[(i + starred.length) % colors.length]}}>
+                  <Text style={styles.senderShort}>{email.senderShort}</Text>
+                </View>
+                <Text>{email.sender}</Text>
               </View>
-              <Text>{email.sender}</Text>
-            </View>
-          </View> ))}
-        </View>
-        {noNormalMailsText}
-
+            </View> ))}
+          </View>
+          {noNormalMailsText}
+        </ScrollView>
       </View>
-      /*<View>
-        <View>{emails.filter(email => email.starred).map(email =>
-          <Text key={email.id}>{email.content}</Text>)}
-        </View>
-        <View>{emails.filter(email => !email.deleted && !email.starred).map(email =>
-          <Text key={email.id}>{email.content}</Text>)}
-        </View>
-      </View>*/
     );
   }
 }
@@ -65,18 +64,20 @@ const colors = ['rgba(112, 91, 196, 0.5)','rgba(85, 127, 190, 0.5)',
 'rgba(132, 46, 176, 0.5)', 'rgba(7, 45, 102, 0.5)'];
 
 //header, title & sender just copy-pasted from Email.js. Better way to do this?
+// e.g. styled-components?
 const styles = StyleSheet.create({
   inboxTitle: {
     fontSize: 40,
     padding: 10,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(154, 154, 154, 1.0)',
   },
   inboxSubTitle: {
     fontSize: 30,
     padding: 10
   },
   header: {
-    backgroundColor: 'rgba(154, 154, 154, 0.15)',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(154, 154, 154, 1.0)',
     padding: 15,
