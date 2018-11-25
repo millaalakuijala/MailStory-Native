@@ -1,6 +1,7 @@
 // JavaScript source code
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
+import ExampleEmail from '../assets/images/example_email_with_instructions.png';
 
 export default class Info extends React.Component {
     constructor(props) {
@@ -51,7 +52,7 @@ export default class Info extends React.Component {
           )}
           {this.state.page == 2 && (
             <View>
-              <Text style={styles.text}>[Insert picture of UI with text descriptions for each symbol & swipes]</Text>
+              <Image source={ExampleEmail} style={{padding: 10, height: Dimensions.get('window').height*0.7, width: Dimensions.get('window').width*0.9}} resizeMode="contain"/>
               <TouchableOpacity style={styles.button} onPress={this.nextPage}>
                 <Text style={styles.buttonText}>Next page</Text>
               </TouchableOpacity>
