@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,6 +9,7 @@ import {
 
 import emails from '../constants/Emails';
 import Inbox from './Inbox';
+import FullStar from '../assets/images/FullStar.png';
 
 export default class NoMessagesScreen extends React.Component {
   constructor(props) {
@@ -38,8 +40,12 @@ export default class NoMessagesScreen extends React.Component {
 	      ? <Inbox />
         : <View styles={styles.container}>
 		      <Text style={styles.announcement}>No new messages!</Text>
-          {starred > 0 && <Text style={{ ...styles.message, color: '#D0A903' }}>
-            You starred {starred} {this.selectWord(starred)}</Text>}
+          {starred > 0 && (
+            <View>
+              {/* <Image source={FullStar} style={styles.image} /> */}
+              <Text style={{ ...styles.message, color: '#D0A903' }}>
+              You starred {starred} {this.selectWord(starred)}</Text>
+            </View>)}
           {deleted > 0
             ? <Text style={{ ...styles.message, color: successColor }}>
               You deleted {deleted} {this.selectWord(deleted)}. You saved {Math.round(deleted * 0.4 * 100) / 100}g CO2.
@@ -89,4 +95,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
   },
+    image: {
+    height: 50,
+    width: 50,
+    marginRight: 15,
+  }
 });
