@@ -26,7 +26,7 @@ export default class Info extends React.Component {
 
     render() {
       return (
-        <View style={{flex: 1, flexDirection: 'column', padding: 20}}>
+        <View style={{flex: 1, flexDirection: 'column', padding: 20, paddingTop: '16%' }}>
           {this.state.page == 0 && (
             <View>
               <View style={{fontSize: 40, paddingVertical: 50, alignItems: 'center', justifyContent: 'center'}}>
@@ -41,7 +41,7 @@ export default class Info extends React.Component {
           )}
           {this.state.page == 1 && (
             <View>
-              <Text style={{fontSize: 20, paddingVertical: 10}}>MailStory is an app which helps you to handle your incoming mails fast and easily.</Text>
+              <Text style={{fontSize: 20, paddingVertical: 10}}>MailStory is an app which helps you handle your incoming mails fast and easily.</Text>
               <Text style={{fontSize: 20, paddingVertical: 10}}>When starting the app, you are shown your new emails, one mail at a time and you can react to them appropiately,
                                                                 for example by deleting or starring them. This way your inbox will always stay clean and organized.</Text>
               <Text style={{fontSize: 20, paddingVertical: 10}}>Possible actions are illustrated on the next page.</Text>

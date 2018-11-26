@@ -20,7 +20,7 @@ export default class Inbox extends React.Component {
     const noNormalMailsText = ( notDeleted.length === 0 && starred.length === 0
       && <Text style={styles.noMailsText}>No messages.</Text> );
     return (
-      <View>
+      <View style={{ paddingTop: 30 }}>
         <Text style={styles.inboxTitle}>Inbox</Text>
         <ScrollView>{starred.map((email, i) => (
           <View key={email.id} style={{

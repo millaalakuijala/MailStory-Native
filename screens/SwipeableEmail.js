@@ -71,12 +71,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(154, 154, 154, 0.15)',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(154, 154, 154, 1.0)',
-    padding: 15,
+    padding: 20,
+    justifyContent: 'center'
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 10,
+    paddingTop: 20,
   },
   sender: {
     flexDirection: 'row',
