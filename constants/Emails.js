@@ -7,6 +7,7 @@ const emails = [{
   + 'Vahvista opiskelupaikkasti linkistä: https://www.opinpiennar.fi/hyvasti-yo-unet\n\nTerveisin,\nOpinpiennar',
   starred: false,
   deleted: false,
+  spam: true
 },
 {
   id: 1,
@@ -19,6 +20,7 @@ const emails = [{
    + ' PS. Ihan sama, mitä tähän kirjoittaa, ei se näy kuitenkaan - ainakaan kokonaan.',
   starred: false,
   deleted: false,
+  spam: false
 },
 {
   id: 2,
@@ -28,6 +30,7 @@ const emails = [{
   content: 'Osaanut opiskelupaikan Vantaan teknillisestä koulutusohjelmasta.\n\n',
   starred: false,
   deleted: false,
+  spam: false
 },
 {
   id: 3,
@@ -37,6 +40,7 @@ const emails = [{
   content: 'Osaanut opiskelupaikan Vantaan teknillisestä koulutusohjelmasta.\n\n',
   starred: false,
   deleted: false,
+  spam: false
 },
 ];
 
