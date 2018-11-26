@@ -11,7 +11,7 @@ import {
   UIManager,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-import * as Progress from '../node_modules/react-native-progress';
+import * as Progress from 'react-native-progress';
 
 import { MonoText } from '../components/StyledText';
 import NoMessagesScreen from './NoMessagesScreen';
